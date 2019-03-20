@@ -1,0 +1,23 @@
+Table 1:
+BatchID (Number) (models.AutoField())
+BatchName (Text) (models.CharField(max_length=15))
+CutOffCPI (Number) (models.FloatField())
+GorupSize (Numeber) (models.IntegerField())
+professors (List Of allowed professors) (Need to find a way to impliment this)
+
+
+Table 2: 
+ID (Number) (models.AutoField())
+Name (Text) (models.CharField(max length=20))
+Area of Interest (Text) (models.TextField())
+Batch & Group (List of Groups whom he is mentoring) (Need to find a way to impliment this)
+
+
+Table 3:
+ID (Number) (models.AutoField())
+Name (Text) (models.CharField(max length=20))
+CPI (Number) (models.FloatField())
+isGroupLeader (Boolean) (models.BooleanField())
+pendingJoinRequests (List of students who sent join request)
+groupID (Number) (models.IntegerField()) # Each group will have a group ID. It will be null till assignment of group.
+PreferenceOfProf (List of professors)
