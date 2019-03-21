@@ -2,7 +2,7 @@ Table 1:
 BatchID (Number) (models.AutoField())
 BatchName (Text) (models.CharField(max_length=15))
 CutOffCPI (Number) (models.FloatField())
-GorupSize (Numeber) (models.IntegerField())
+GroupSize (Number) (models.IntegerField())
 professors (List Of allowed professors) (Need to find a way to impliment this)
 
 
@@ -21,3 +21,18 @@ isGroupLeader (Boolean) (models.BooleanField())
 pendingJoinRequests (List of students who sent join request)
 groupID (Number) (models.IntegerField()) # Each group will have a group ID. It will be null till assignment of group.
 PreferenceOfProf (List of professors)
+
+I guess we make a login page and we start adding people
+Now as group forms and admin decides the group leader based on cpi
+Now each student has its own portal which can be used to send request and if student is group leader then ahe gets different page to accept invites
+(does admin decide whom to make group leader)
+Also this own portal can be used to chat with fellow students, display the current status of project and also choosing professors
+
+Tasks:
+1. Main admin page who can add info abt professors and choose group leaders
+    Admin page me proffs ka option, groups ka option,and ek simuntaneous broadcast
+2. Second page will be student login page that will be changed if the loggedin student becomes group leader ie. we should
+   route leader to different page.
+
+
+  I guess ye dono main pages will solve our purpose
