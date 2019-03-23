@@ -26,7 +26,7 @@ from main import views as core_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', core_views.home, name='home'),
-    path('login/', auth_views.login, {'templates': 'login.html'}, name='login'),
-    path('logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
-    path('signup/', core_views.signup, name='signup'),
+    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
+    url(r'^signup/$', core_views.signup, name='signup'),
 ]
