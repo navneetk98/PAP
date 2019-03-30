@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login.apps.LoginConfig',
+    'administrator.apps.AdminConfig',
+    'professor.apps.ProfessorConfig',
+    'allotment.apps.AllotmentConfig',
     'crispy_forms',
-]
+]#TODO register teamFormation app
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
