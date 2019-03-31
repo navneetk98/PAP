@@ -16,7 +16,6 @@ Including another URLconf
 
 from django.urls import path, include
 from django.contrib import admin
-
 from django.conf.urls import url
 from login import views as core_views
 
@@ -26,4 +25,5 @@ urlpatterns = [
     path('', core_views.site_home),
     path('home/', core_views.home, name='home'),
     url(r'^login/', include('login.urls')),
+    path('professors/', include('professor.urls')),
 ]
