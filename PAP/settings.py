@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'professor.apps.ProfessorConfig',
     'allotment.apps.AllotmentConfig',
     'crispy_forms',
+    'tf.apps.tfConfig',
 ]#TODO register teamFormation app
 
 MIDDLEWARE = [
