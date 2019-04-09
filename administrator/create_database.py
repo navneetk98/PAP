@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
+from professor.models import Professor
 
 
-def create_database(path):
+def student_database(path):
     f = open(path)
     for line in f:
         line = line.split(',')
@@ -16,3 +17,11 @@ def create_database(path):
         user.teamformation.save()
 
 #user_name ; password; f_name; l_name; cpi; group_id; slot_no
+
+
+def professor_database(path):
+    f = open(path)
+    for line in f:
+        line = line.split(',')
+        professor = Professor.objects.create(first_name=line[1], last_name=line[2], max_group=line[3], area_of_interest=line[4])
+        professor.save()
