@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf.urls import url
 from login import views as core_views
-
+from administrator import views as admin_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('home/', core_views.home, name='home'),
     url(r'^login/', include('login.urls')),
     path('professors/', include('professor.urls')),
+    path('administrator/', include('administrator.urls'))
+
 ]
