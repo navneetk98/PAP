@@ -12,7 +12,7 @@ class Admin(models.Model):
 
 
 class Batch(models.Model):
-    ID = models.SmallIntegerField(primary_key=True)
+    ID = models.AutoField(primary_key=True)
     batch_name = models.CharField(max_length=256)
     cutoff_cpi = models.FloatField(null=True, blank=True)
     group_size = models.SmallIntegerField()
