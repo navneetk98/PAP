@@ -12,12 +12,13 @@ class Admin(models.Model):
 
 
 class Batch(models.Model):
-    ID = models.SmallIntegerField(primary_key=True)
+    ID = models.AutoField(primary_key=True)
     batch_name = models.CharField(max_length=256)
     cutoff_cpi = models.FloatField(null=True, blank=True)
     group_size = models.SmallIntegerField()
     is_team_formation_allowed = models.BooleanField(default=False)
     is_preference_filling_allowed = models.BooleanField(default=False)
+    professor_data_uploaded = models.BooleanField(default=False)
     professor = models.ManyToManyField(Professor)
     admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 

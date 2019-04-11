@@ -1,6 +1,8 @@
-from django import forms
+from django.forms import ModelForm
+from . models import Batch
 
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
+class AddBatchForm(ModelForm):
+    class Meta:
+        model = Batch
+        fields = ['batch_name', 'cutoff_cpi', 'group_size']
