@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <a href="{% url 'add-batch' %}"><button formaction={% url 'add-batch' %}>Add Batch</button></a>
+
+  {% for b in batch %}
+     <table style="width:100%">
+        <tr>
+            <th>{{ b.ID }}</th>
+            <th>{{ b.batch_name }}</th>
+            <th>{{ b.cutoff_cpi }}</th>
+            <th>{{ b.group_size }}</th>
+            <th>
+                <label class="switch">
+                    {% if b.is_preference_filling_allowed %}
+                        <input type="checkbox" checked>
+                    {% else %}
+                        <input type="checkbox">
+                    {% endif %}
+                <span class="slider round"></span>
+                </label>
+            </th>
+            <th>
+                <label class="switch">
+                    {% if b.is_preference_filling_allowed %}
+                        <input type="checkbox" checked>
+                    {% else %}
+                        <input type="checkbox">
+                    {% endif %}
+                <span class="slider round"></span>
+                </label>
+            </th>
+            {% if b.professor_data_uploaded == False %}
+                <th>
+                    <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                {{ form }}
+                            </fieldset>
+                            <input type="file" name="myfile">
+                            {{ b.ID }}
+                            <button type="submit" name={{ b.ID }} value={{ b.batch_name }}>Add</button>
+                    </form>
+
+                </th>
+            {% else %}
+            <th>{% for p in b.professor.all %}
+                    {{ p.first_name }}
+                {% endfor %}
+            </th>
+            {% endif %}
+        </tr>
+     </table>
+  {% endfor %}
+{% endblock %}
