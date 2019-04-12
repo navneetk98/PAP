@@ -25,12 +25,30 @@ def signup(request):
 
 @login_required
 def home(request):
-    if not request.user.teamformation.slot_no:
-        stri=request.user.teamformation.requests
-        stri2 = stri.split(',')
-        print(stri2)
+    if  request.user.teamformation.slot_no !=1:
+        # print(stri2)
         # g=stri2.len()
         users = User.objects.filter(teamformation__slot_no__exact=1)
+        for u in users:
+            print(u.teamformation.group_id)
+            if request.POST.get(str(u.teamformation.group_id)):
+                std = User.objects.filter(id=u.id)
+                std = std[0]
+                print(std.teamformation.group_id)
+                request.user.teamformation.group_id = u.teamformation.group_id
+                request.user.teamformation.requests = ""
+                request.user.teamformation.save()
+                stri = request.user.teamformation.requests
+                stri2 = stri.split(',')
+                users = User.objects.filter(teamformation__slot_no__exact=-1)
+                context = {
+                    "string": stri2,
+                    "all": users
+                    # "length": g
+                }
+                return render(request, 'normal_login.html', context)
+        stri = request.user.teamformation.requests
+        stri2 = stri.split(',')
         context = {
             "string": stri2,
             "all": users
@@ -38,8 +56,7 @@ def home(request):
         }
         return render(request,'normal_login.html', context)
     else:
-
-        users = User.objects.filter(teamformation__slot_no__exact=-1)
+        users = User.objects.filter(teamformation__slot_no__exact=1)
         for u in users:
             print(u.id)
             if request.POST.get(str(u.id)):

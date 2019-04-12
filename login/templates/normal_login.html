@@ -8,7 +8,15 @@
     {{ all }}
     {% for k in all %}
         <p>{{ k.first_name }}  {{ k.last_name }}</p>
-        <a href='send/{{ k.teamformation.group_id }}'>Select</a>
+{#        <a href='send/{{ k.teamformation.group_id }}'>Select</a>#}
+        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                {{ form }}
+                            </fieldset>
+                            {{ k.ID }}
+                            <button type="submit" name={{ k.teamformation.group_id }} value={{ k.teamformation.group_id }}>Add</button>
+                    </form>
     {% endfor %}
 
    <h1>{{ string.1 }}</h1>
