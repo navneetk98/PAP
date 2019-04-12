@@ -1,8 +1,19 @@
+from allotment.models import Group
+
+
 def slot_allotment(batch):
     students = (batch.profile_set.all()).order_by("-cpi")
-    batch_size = batch.group_size
-    i = batch_size
+    number_of_groups = batch.number_of_groups
+    i = number_of_groups
+    j = 1
     for s in students:
-        s.user.teamformation.slot_no = int(i/batch_size)
+        n = int(i/number_of_groups)
+        s.user.teamformation.slot_no = n
         i = i+1
+        if n == 1:
+            group = Group(batch=batch)
+            group.group_id = j
+            group.save()
+            j = j+1
+            s.user.teamformation.group = group
         s.user.teamformation.save()

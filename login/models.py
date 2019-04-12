@@ -9,7 +9,7 @@ from administrator.models import Batch
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     cpi = models.FloatField(blank=False, null=True)
-    group_ID = models.SmallIntegerField(null=True, blank=True)
+    #group_ID = models.SmallIntegerField(null=True, blank=True)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE, null=True)
 
 

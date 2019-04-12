@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Your Group id is {{ idd }}</h1>
+    {% if idd == -1 %}
+    <h1>You dont have a group</h1>
+    {% else %}
+        <ul id="usersss">
+        {% for k in userall %}
+        <li>{{ k.first_name }}  {{ k.last_name }} {{ k.username }}
+        {% endfor %}
+    {% endif %}
+    {% endblock %}

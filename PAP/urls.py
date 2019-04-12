@@ -26,6 +26,7 @@ urlpatterns = [
     path('home/', core_views.home, name='home'),
     url(r'^login/', include('login.urls')),
     path('professors/', include('professor.urls')),
-    path('administrator/', include('administrator.urls'))
+    path('administrator/', include('administrator.urls')),
+    url('group/',core_views.group),
 
 ]

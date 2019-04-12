@@ -25,60 +25,73 @@ def signup(request):
 
 @login_required
 def home(request):
-    if  request.user.teamformation.slot_no !=1:
-        # print(stri2)
-        # g=stri2.len()
-        users = User.objects.filter(teamformation__slot_no__exact=1)
-        for u in users:
-            print(u.teamformation.group_id)
-            if request.POST.get(str(u.teamformation.group_id)):
-                std = User.objects.filter(id=u.id)
-                std = std[0]
-                print(std.teamformation.group_id)
-                request.user.teamformation.group_id = u.teamformation.group_id
-                request.user.teamformation.requests = ""
-                request.user.teamformation.save()
-                stri = request.user.teamformation.requests
-                stri2 = stri.split(',')
-                users = User.objects.filter(teamformation__slot_no__exact=-1)
-                context = {
-                    "string": stri2,
-                    "all": users
-                    # "length": g
-                }
-                return render(request, 'normal_login.html', context)
-        stri = request.user.teamformation.requests
-        stri2 = stri.split(',')
-        context = {
-            "string": stri2,
-            "all": users
-            # "length": g
-        }
-        return render(request,'normal_login.html', context)
-    else:
-        users = User.objects.filter(teamformation__slot_no__exact=1)
-        for u in users:
-            print(u.id)
-            if request.POST.get(str(u.id)):
-                std = User.objects.filter(id=u.id)
-                std = std[0]
-                print(std.teamformation.requests)
-                std.teamformation.requests = std.teamformation.requests + ',' + str(request.user.teamformation.group_id)
-                std.teamformation.save()
-        context = {
-            "all":users
-        }
-        return render(request,'leader_login.html', context)
-    return render(request, 'home.html')
+    # if is_teamformation:
+        if  request.user.teamformation.slot_no !=1:
+            # print(stri2)
+            # g=stri2.len()
+            users = User.objects.filter(teamformation__slot_no__exact=1)
+            for u in users:
+                print(u.teamformation.group_id)
+                if request.POST.get(str(u.teamformation.group_id)):
+                    std = User.objects.filter(id=u.id)
+                    std = std[0]
+                    print(std.teamformation.group_id)
+                    #####################################
+                    if is_sloter_present(request.user.teamformation.slot_no, u.teamformation.group):
+                        return render('sloter_present.html')
+                    else:
+                        request.user.teamformation.group_id = u.teamformation.group_id
+                        request.user.teamformation.requests = ""
+                        request.user.teamformation.save()
+                        stri = request.user.teamformation.requests
+                        stri2 = stri.split(',')
+                        users = User.objects.filter(teamformation__slot_no__exact=-1)
+                        context = {
+                            "string": stri2,
+                            "all": users
+                            # "length": g
+                        }
+                        return render(request, 'normal_login.html', context)
+            stri = request.user.teamformation.requests
+            stri2 = stri.split(',')
+            context = {
+                "string": stri2,
+                "all": users
+                # "length": g
+            }
+            return render(request,'normal_login.html', context)
+        else:
+            users = User.objects.filter(teamformation__slot_no__exact=1)
+            for u in users:
+                print(u.id)
+                if request.POST.get(str(u.id)):
+                    std = User.objects.filter(id=u.id)
+                    std = std[0]
+                    print(std.teamformation.requests)
+                    std.teamformation.requests = std.teamformation.requests + ',' + str(request.user.teamformation.group_id)
+                    std.teamformation.save()
+            context = {
+                "all":users
+            }
+            return render(request,'leader_login.html', context)
+    # else:
+    #     return render(request, 'group.html')
+    # return render(request, 'home.html')
 
 def site_home(request):
     return render(request,'site_home.html')
 
-def update_group(request ,idd):
-    request.user.teamformation.group_id = idd
-    return redirect('home')
+def group(request):
+    idd =  request.user.teamformation.group_id
+    usrall=User.objects.filter(teamformation__group_id__exact= idd)
+    context = {
+        "idd": idd,
+        "userall" : usrall
+    }
+    return render(request,'group.html',context)
 
-def leader_send(request ,usrname):
-    sel_user=User.objects.filter(username__exact= usrname)
-    sel_user.teamformation.requests.append(request.user.teamformation.group_id)
-    return redirect('home')
+def is_sloter_present(slot_no, group):
+    for s in group.teamformation_set.all():
+        if s.slot_no == slot_no:
+            return True
+    return False
