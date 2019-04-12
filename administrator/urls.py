@@ -8,10 +8,11 @@ URLs ~
 ​
 """
 from django.conf.urls import url
-from . views import upload_students as student_upload_view
 from . views import upload_professor as professor_upload_view
+from . views import admin_home, add_batch
 
 urlpatterns = [
-    url(r'^upload/students$', student_upload_view, name='student_upload'),
     url(r'^upload/professor$', professor_upload_view, name='professor_upload'),
+    url(r'^$', admin_home, name='admin_home'),
+    url(r'^add-batch$', add_batch, name='add-batch'),
 ]

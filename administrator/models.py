@@ -18,6 +18,7 @@ class Batch(models.Model):
     group_size = models.SmallIntegerField()
     is_team_formation_allowed = models.BooleanField(default=False)
     is_preference_filling_allowed = models.BooleanField(default=False)
+    professor_data_uploaded = models.BooleanField(default=False)
     professor = models.ManyToManyField(Professor)
     admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
