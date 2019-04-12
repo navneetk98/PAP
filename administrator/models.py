@@ -15,7 +15,7 @@ class Batch(models.Model):
     ID = models.AutoField(primary_key=True)
     batch_name = models.CharField(max_length=256)
     cutoff_cpi = models.FloatField(null=True, blank=True)
-    group_size = models.SmallIntegerField()
+    number_of_groups = models.SmallIntegerField()
     is_team_formation_allowed = models.BooleanField(default=False)
     is_preference_filling_allowed = models.BooleanField(default=False)
     professor_data_uploaded = models.BooleanField(default=False)

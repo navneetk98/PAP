@@ -11,7 +11,7 @@ def student_database(path, batch):
         user.last_name = line[3]
         user.save()
         user.profile.cpi = line[4]
-        user.profile.group_ID = line[5]
+        #user.profile.group_ID = line[5]
         user.profile.batch = batch
         user.teamformation.slot_no = line[6]
         user.profile.save()
