@@ -42,11 +42,12 @@
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
             {% if user.is_authenticated %}
               <li><a href="{% url 'logout' %}">logout</a></li>
+                <li class="selected"><a href=" 'group/'">Group</a></li>
             {% else %}
               <li><a href="{% url 'login' %}">login</a></li>
-              <li class="selected"><a href="{% url 'signup' %}">signup</a></li>
               <li><a href="another_page.html">Another Page</a></li>
               <li><a href="contact.html">Contact Us</a></li>
+{#                <li class="selected"><a href="./group">Group</a></li>#}
              {% endif %}
         </ul>
       </div>
