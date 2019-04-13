@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <table style="width:100%">
+      <tr>
+        <th>Name:</th>
+        <td>{{ prof.first_name }} {{ prof.last_name }}</td>
+      </tr>
+      <tr>
+        <th>Area of interests:</th>
+        <td>{{ prof.area_of_interest }}</td>
+      </tr>
+      <tr>
+          <th rowspan="{{ prof.group_set.count }}" >Groups:</th>
+      </tr>
+    <tr>
+    {% for g in prof.group_set.all %}
+        <table align="center">
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>CPI</th>
+                <th>Slot No</th>
+            </tr>
+            {% for t in g.teamformation_set.all %}
+                <tr>
+                    <td>{{ t.user.username }}</td>
+                    <td>{{ t.user.first_name }} {{ t.user.last_name }}</td>
+                    <td>{{ t.user.profile.cpi }}</td>
+                    <td>{{ t.slot_no }}</td>
+                </tr>
+            {% endfor %}
+    {% endfor %}
+    </tr>
+    </table>
+
+{% endblock %}

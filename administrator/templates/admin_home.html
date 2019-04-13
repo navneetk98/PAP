@@ -4,33 +4,30 @@
 
 {% block content %}
     <a href="{% url 'add-batch' %}"><button formaction={% url 'add-batch' %}>Add Batch</button></a>
-
-  {% for b in batch %}
-     <table style="width:100%">
+    <table style="width:50%" align="center">
+        {% for b in batch %}
         <tr>
             <th>{{ b.ID }}</th>
             <th>{{ b.batch_name }}</th>
             <th>{{ b.cutoff_cpi }}</th>
             <th>{{ b.number_of_groups }}</th>
             <th>
-                <label class="switch">
-                    {% if b.is_preference_filling_allowed %}
-                        <input type="checkbox" checked>
-                    {% else %}
-                        <input type="checkbox">
-                    {% endif %}
-                <span class="slider round"></span>
-                </label>
+                <form method="GET" >
+                    {% csrf_token %}
+                    <label class="switch">
+                        {{ b.is_preference_filling_allowed }}
+                        <button type="submit" name="{{ b.ID }}_preference_filling" value="{{ b.ID }}_preference_filling">Change</button>
+                    </label>
+                </form>
             </th>
             <th>
-                <label class="switch">
-                    {% if b.is_preference_filling_allowed %}
-                        <input type="checkbox" checked>
-                    {% else %}
-                        <input type="checkbox">
-                    {% endif %}
-                <span class="slider round"></span>
+                <form method="GET">
+                    {% csrf_token %}
+                    <label class="switch">
+                    {{  b.is_team_formation_allowed }}
+                    <button type="submit" name="{{ b.ID }}_team_formation" value="{{ b.ID }}_team_formation">Change</button>
                 </label>
+                </form>
             </th>
             {% if b.professor_data_uploaded == False %}
                 <th>
@@ -39,19 +36,44 @@
                             <fieldset class="form-group">
                                 {{ form }}
                             </fieldset>
-                            <input type="file" name="myfile">
-                            {{ b.ID }}
+                            <input type="file" name="prof-data">
                             <button type="submit" name={{ b.ID }} value={{ b.batch_name }}>Add</button>
                     </form>
 
                 </th>
             {% else %}
-            <th>{% for p in b.professor.all %}
-                    {{ p.first_name }}
-                {% endfor %}
+            <th>
+                 <div class="vertical-menu">
+                    {% for p in b.professor.all %}
+                     <a href={% url 'prof_details' b.ID p.ID %} >{{ p.first_name }} {{ p.last_name}}</a>
+                     {% endfor %}
+                 </div>
+
+
             </th>
             {% endif %}
+            <th>
+                {% if b.is_mentor_allotted %}
+                    <a href="{% url 'groups-details' b.ID %}"><button type="submit" name="{{ b.ID }}_view_groups" value="{{ b.ID }}_view_groups" >View Groups</button></a>
+                {% else  %}
+                    {% if b.professor_data_uploaded %}
+                        <form method="GET" >
+                        {% csrf_token %}
+                            <label class="switch">
+                                <button type="submit" name="{{ b.ID }}_allotment" value="allotment" >Allot Mentors</button>
+                            </label>
+                        </form>
+                    {% else %}
+                        <form method="GET" >
+                        {% csrf_token %}
+                            <label class="switch">
+                                <button type="submit" name="{{ b.ID }}_allotment" value="allotment" disabled>Allot Mentors</button>
+                            </label>
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </th>
         </tr>
-     </table>
-  {% endfor %}
+        {% endfor %}
+    </table>
 {% endblock %}
