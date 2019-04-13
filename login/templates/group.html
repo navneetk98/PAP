@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Your Group id is {{ idd }}</h1>
     {% if idd == -1 %}
-    <h1>You dont have a group</h1>
+    <h1>You don't have a group</h1>
     {% else %}
-        <ul id="usersss">
-        {% for k in userall %}
-        <li>{{ k.first_name }}  {{ k.last_name }} {{ k.username }}
-        {% endfor %}
+        <h2 align="left">Group ID: {{ idd }}</h2>
+        <h3>Mentor: {{ g.mentor.first_name }} {{ g.mentor.last_name }}</h3>
+        <table align="center">
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>CPI</th>
+            </tr>
+            {% for t in userall %}
+                <tr>
+                    <td>{{ t.username }}</td>
+                    <td>{{ t.first_name }} {{ t.last_name }}</td>
+                    <td>{{ t.profile.cpi }}</td>
+                </tr>
+            {% endfor %}
     {% endif %}
     {% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-
+from django.contrib.auth.models import User
 
 from .models import Professor
 
@@ -29,4 +29,15 @@ class ProfessorForm(forms.ModelForm):
             'area_of_interest',
             'first_name',
             'last_name',
+        ]
+
+class proffform(forms.ModelForm):
+    queryset = Professor.objects.all()
+    proff1 = forms.ModelChoiceField(queryset=Professor.objects.all())
+    proff2 = forms.ModelChoiceField(queryset=Professor.objects.all())
+    class Meta:
+        model = Professor
+        fields = [
+            'proff1',
+            'proff2'
         ]

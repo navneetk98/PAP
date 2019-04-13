@@ -27,6 +27,6 @@ urlpatterns = [
     url(r'^login/', include('login.urls')),
     path('professors/', include('professor.urls')),
     path('administrator/', include('administrator.urls')),
-    url('group/',core_views.group),
+    url(r'group/',core_views.group),
 
 ]
