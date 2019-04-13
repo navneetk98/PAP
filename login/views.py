@@ -36,9 +36,8 @@ def home(request):
                     std = User.objects.filter(id=u.id)
                     std = std[0]
                     print(std.teamformation.group_id)
-                    #####################################
                     if is_sloter_present(request.user.teamformation.slot_no, u.teamformation.group):
-                        return render('sloter_present.html')
+                        return render(request,'sloter_present.html')
                     else:
                         request.user.teamformation.group_id = u.teamformation.group_id
                         request.user.teamformation.requests = ""
@@ -95,3 +94,5 @@ def is_sloter_present(slot_no, group):
         if s.slot_no == slot_no:
             return True
     return False
+
+

@@ -1,5 +1,5 @@
 from django.urls import path
-from professor.views import professors_list_view,professor_create_view
+from professor.views import professors_list_view,professor_create_view,professor_priority
 """
 URLs ~
 /(list of all professors)
@@ -13,4 +13,5 @@ app_name = 'professors'
 urlpatterns = [
     path('', professors_list_view, name='professors-list'),
     path('create/', professor_create_view),
+    path('priority/' ,professor_priority),
     ]
