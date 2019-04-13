@@ -6,6 +6,6 @@ from professor.models import Professor
 
 class Group(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
-    group_id = models.PositiveIntegerField(primary_key=True)
-    mentor = models.ForeignKey(Professor,on_delete=models.SET_NULL, null=models.SET_NULL)
+    group_id = models.AutoField(primary_key=True)
+    mentor = models.ForeignKey(Professor, on_delete=models.SET_NULL, null=models.SET_NULL)
     preference_of_professor = models.CharField(max_length=256, null=True)

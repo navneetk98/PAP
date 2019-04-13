@@ -12,7 +12,7 @@ def slot_allotment(batch):
         i = i+1
         if n == 1:
             group = Group(batch=batch)
-            group.group_id = j
+            # group.group_id = j
             group.save()
             j = j+1
             s.user.teamformation.group = group

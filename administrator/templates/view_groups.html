@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% for g in groups %}
+        <h2 align="left">Group ID: {{ g.group_id }}</h2>
+        <h3>Mentor: {{ g.mentor.first_name }} {{ g.mentor.last_name }}</h3>
+        <table align="center">
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>CPI</th>
+                <th>Slot No</th>
+            </tr>
+            {% for t in g.teamformation_set.all %}
+                <tr>
+                    <td>{{ t.user.username }}</td>
+                    <td>{{ t.user.first_name }} {{ t.user.last_name }}</td>
+                    <td>{{ t.user.profile.cpi }}</td>
+                    <td>{{ t.slot_no }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+{% endblock %}
